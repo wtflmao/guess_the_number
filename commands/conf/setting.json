@@ -1,6 +1,6 @@
 {
-	"multiplier": "1",
-	"easyBase": "1",
-	"normalBase": "100",
-	"hardBase": "10000"
+	"multiplier": "2",
+	"easyBase": "2",
+	"normalBase": "200",
+	"hardBase": "20000"
 }

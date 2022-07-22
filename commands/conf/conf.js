@@ -6,10 +6,6 @@ module.exports = class Conf {
         this.hardBase = hardBase;
     };
 
-    getConf() {
-        return new Conf(this.multiplier, this.easyBase, this.normalBase, this.hardBase);
-    };
-
     toStr() {
         return `{\n\t"multiplier": "${this.multiplier}",\n\t"easyBase": "${this.easyBase}",\n\t"normalBase": "${this.normalBase}",\n\t"hardBase": "${this.hardBase}"\n}`;
     }
