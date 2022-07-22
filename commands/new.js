@@ -1,41 +1,46 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const Conf = require('./conf/conf');
+const fs = require('fs');
 
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('new')
-		.setDescription('Start a new game, only available when there\'s no game process going on. ')
+		.setDescription('Start a new game. ')
 		.addStringOption(option =>
 			option.setName("mode")
 				.setDescription("Difficulty selector")
 				.setRequired(true)
 				.addChoices(
-					{ name: 'Easy', value: '1'},
-					{ name: 'Normal', value: '10'},
-					{ name: 'Hard', value: '100'})),
+					{ name: 'Easy', value: '0'},
+					{ name: 'Normal', value: '1'},
+					{ name: 'Hard', value: '2'})),
 	akaNames: ['play', 'start'],
 
 	async execute(interaction) {
 		const mode = interaction.options.getString('mode');
 
-		// the min and max numbers are dynamically changed through game process
+		let configJSON = fs.readFileSync('./commands/conf/setting.json');
+		const cc = new Conf(null).fromString(configJSON.toString());
+
 		let minNum = 1;
-		let maxNum = 999;
-		if (mode === '1') {
-			// easy mode
-			minNum = 1;
-			maxNum = 99;
-		} else if (mode === "10") {
-			// normal mode
-			minNum = 100;
-			maxNum = 9999;
-		} else if (mode ===  "100") {
-			// hard mode
-			minNum = 10000;
-			maxNum = 999999;
+		let maxNum = 2;
+		const range = 100;
+		if (mode === '0') {
+			minNum = cc.easyBase;
+			maxNum = cc.easyBase * range - 1;
+		} else if (mode === '1') {
+			minNum = cc.normalBase;
+			maxNum = cc.normalBase * range - 1;
+		} else if (mode === '2') {
+			minNum = cc.hardBase;
+			maxNum = cc.hardBase * range - 1;
 		} else {
-			await interaction.reply("Internal error, errcode: 10");
+			console.log("mode exception detected.");
+			await interaction.reply("error: mode exception detected");
 			return;
 		}
+		minNum = Math.floor(minNum);
+		maxNum = Math.floor(maxNum);
 
 		// randomly generate a number as our correct answer
 		const correctAnswer = minNum + Math.floor(Math.random() * (maxNum-minNum)); // possible integer answer lies in [minNum, maxNum]
