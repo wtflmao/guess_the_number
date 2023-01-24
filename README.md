@@ -1,16 +1,54 @@
 # guess_the_number
 
-built with [discord.js v14](https://github.com/discordjs/discord.js)
+Built with [Discord.js v14.0.3](https://discord.js.org/#/docs/discord.js/main/general/welcome)
 
-some reference docs (maybe) can be found here: [blog link](https://www.cnblogs.com/hhzm/)
+Some reference docs can be found here: [My Blog](https://www.cnblogs.com/hhzm/)
 
-remember to create a config.json in the project root directory to make it works!
-
-config.json looks like this:
+First thing first, git clone this project:
+```shell
+git clone https://github.com/wtflmao/guess_the_number.git
 ```
-{  
-   "token": "bot-token-goes-here",  
-   "clientId": "bot-clientid-goes here",  
-   "guildId": "serverid-goes-here"  
-}
+
+Then, create a config.json in the directory `guess_the_number`.
+
+- `config.json` looks like this:
+    ```json
+    {  
+       "token": "bot-token-goes-here",  
+       "clientId": "bot-clientid-goes-here",  
+       "guildId": "serverid-goes-here"  
+    }
+    ```
+  - If you don't know what a "bot token" is, then I guess you haven't created your own discord application yet.
+
+      Go to [Discord Developer Portal](https://discord.com/developers/applications) to set up your first very own application and add a very new bot to it.
+  - clientId is your bot's snowflake id.
+  - guildId is your server's snowflake id.
+
+After setting up that config.json thingy, you should run the following command to install discord.js:
+```shell
+cd guess_the_number
 ```
+
+```shell
+npm install discord.js@v14.0.3
+```
+
+Then, use the following lines to deploy your commands.
+```shell
+node deploy_commands.js
+```
+
+Then ,use the following command to start your bot.
+```shell
+node .
+```
+or
+```shell
+node index.js
+```
+   
+That's all. 
+
+Btw, my bot was built just for myself learning purpose, it isn't production-ready.
+I do NOT provide any warranty for this project.
